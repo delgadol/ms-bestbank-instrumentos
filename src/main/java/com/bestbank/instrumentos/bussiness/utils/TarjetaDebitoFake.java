@@ -5,15 +5,29 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.Random;
 
+import com.bestbank.instrumentos.domain.utils.TipoInstrumento;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
+@Builder
 @Data
+@AllArgsConstructor
 public class TarjetaDebitoFake {
   
   private String codigoInstrumento;
   private String codControl;
   private Date fecInicio;
   private Date fecFinal;
+  // Adcionales //
+  private Integer indEliminado;
+  private String estado;
+  private Date fecCreacion;  
+  private Date fecModificacion;
+  private TipoInstrumento tipoInstrumento;
+  
+  
 
   public TarjetaDebitoFake() {
     generarDatosTarjeta();
@@ -22,14 +36,14 @@ public class TarjetaDebitoFake {
   private void generarDatosTarjeta() {
     codigoInstrumento = generarNumeroTarjeta();
     codControl = generarCCV();
-    LocalDate currentDate = LocalDate.now();
-    LocalDate firstDayOfMonth = currentDate.withDayOfMonth(1);
-    LocalDate lastDayOfMonth = currentDate.withDayOfMonth(currentDate.lengthOfMonth());
-    lastDayOfMonth = lastDayOfMonth.plusYears(5);
-
-    fecInicio = Date.from(firstDayOfMonth.atStartOfDay(ZoneId.systemDefault()).toInstant());
-    fecFinal = Date.from(lastDayOfMonth.atStartOfDay(ZoneId.systemDefault()).toInstant());
-    
+    fecInicio = BankFnUtils.getLegacyFirtDateOfMonth();
+    fecFinal = BankFnUtils.getLegacyEndDateOfMonth(5);
+    // Adcionales //
+    indEliminado = 0;
+    estado = "0";
+    fecCreacion = BankFnUtils.getLegacyDateTimeNow();  
+    fecModificacion = BankFnUtils.getLegacyDateTimeNow();
+    tipoInstrumento = TipoInstrumento.TARJETA_DEBITO;
   }
 
   private String generarNumeroTarjeta() {

@@ -13,9 +13,6 @@ public class InstrumentoReq {
   
   @NotNull
   private String codPersona;
-  
-  @NotNull
-  private Integer addAutoCtasPasivas;
-  
+    
   
 }

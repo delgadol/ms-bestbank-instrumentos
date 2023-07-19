@@ -20,4 +20,6 @@ public class InstrumentoRes {
   
   private Date fecFinal;
   
+  private Date fecCreacion;
+  
 }

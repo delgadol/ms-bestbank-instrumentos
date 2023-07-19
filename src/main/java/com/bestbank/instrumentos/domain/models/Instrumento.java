@@ -4,12 +4,13 @@ import com.bestbank.instrumentos.domain.utils.TipoInstrumento;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
+@Document(collection = "instrumentos")
 @Data
 public class Instrumento {
   
