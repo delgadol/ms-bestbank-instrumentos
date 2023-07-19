@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bestbank.instrumentos.bussiness.dto.req.InstrumentoModReq;
 import com.bestbank.instrumentos.bussiness.dto.req.InstrumentoReq;
 import com.bestbank.instrumentos.bussiness.dto.res.InstrumentoAsoRes;
 import com.bestbank.instrumentos.bussiness.dto.res.InstrumentoRes;
@@ -31,27 +30,37 @@ public class InstrumentosRestService {
   }
   
   
-  @PutMapping("/{idInstrumento}")
-  public Mono<InstrumentoRes> putInstrument(@Valid @RequestBody InstrumentoModReq instrumento) {
+  @GetMapping("/{idInstrumento}")
+  public Mono<InstrumentoRes> getinstrumenById(
+      @PathVariable(name = "idInstrumento") String idInstrumento) {
     return null;
   }
   
-  @GetMapping("/{idInstrumento}")
-  public Mono<InstrumentoRes> getinstrumenById(@)
+  @DeleteMapping("/{idInstrumento}")
+  public Mono<InstrumentoRes> delInstrumenById(
+      @PathVariable(name = "idInstrumento") String idInstrumento) {
+    return null;
+  }
+  
   
   @PutMapping("/{idInstrumento}/asociaciones/{idProducto}")
-  public Mono<InstrumentoAsoRes> putAsocProInstrument(
+  public Mono<InstrumentoAsoRes> putAsocProdInstrument(
       @PathVariable(name = "idInstrumento") String idInstrumento, 
       @PathVariable(name = "idProducto") String idProducto) {
     return null;
   } 
   
   @DeleteMapping("/{idInstrumento}/asociaciones/{idProducto}")
-  public Mono<InstrumentoAsoRes> delAsocProInstrument(
+  public Mono<InstrumentoAsoRes> delAsocProdInstrument(
       @PathVariable(name = "idInstrumento") String idInstrumento, 
       @PathVariable(name = "idProducto") String idProducto) {
     return null;
   } 
   
-
+  @GetMapping("/{idInstrumento}/asociaciones/")
+  public Mono<InstrumentoAsoRes> getAsocProdInstrument(
+      @PathVariable(name = "idInstrumento") String idInstrumento) {
+    return null;
+  } 
+  
 }

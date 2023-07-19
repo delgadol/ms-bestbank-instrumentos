@@ -4,6 +4,7 @@ import com.bestbank.instrumentos.domain.utils.TipoInstrumento;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.annotation.Id;
 
@@ -21,11 +22,17 @@ public class Instrumento {
   
   private String codPersona;
   
-  private Integer indEliminado;
+  private String codControl;
+  
+  private Date fecInicio;
+  
+  private Date fecFinal;
   
   private List<ProductoAsociado> productosAsociados;
   
-  private String Estado;
+  private Integer indEliminado;
+  
+  private String estado;
   
   private Date fecCreacion;
   
