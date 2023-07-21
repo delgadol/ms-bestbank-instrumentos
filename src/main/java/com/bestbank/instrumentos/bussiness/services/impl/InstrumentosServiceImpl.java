@@ -148,8 +148,8 @@ public class InstrumentosServiceImpl implements InstrumentosService {
   public Mono<InstrumentoAsoRes> putAsocProdInstrument(String idInstrumento,
       String idProducto) {
     return isProductoOk(idProducto)
-        .flatMap(prodApi -> {
-          return isInstrumentoOk(idInstrumento)
+        .flatMap(prodApi -> 
+          isInstrumentoOk(idInstrumento)
               .filter(intF1 -> 
               intF1.getCodPersona().equals(prodApi.getCodigoPersona()))
               .switchIfEmpty(Mono.error(
@@ -179,8 +179,8 @@ public class InstrumentosServiceImpl implements InstrumentosService {
                 modInstrumento.setFecModificacion(BankFnUtils.getLegacyDateTimeNow());
                 return instrumentosRepo.save(modInstrumento)
                     .map(s -> ModelMapperUtils.map(s, InstrumentoAsoRes.class));
-              });
-        });
+              })
+        );
   }
 
   @Override
