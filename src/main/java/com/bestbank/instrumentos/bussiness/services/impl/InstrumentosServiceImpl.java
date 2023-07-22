@@ -1,6 +1,7 @@
 package com.bestbank.instrumentos.bussiness.services.impl;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -83,12 +84,12 @@ public class InstrumentosServiceImpl implements InstrumentosService {
   
   private Mono<Instrumento> isInstrumentoClienteOk(String idInstrumento) {
     return isInstrumentoClienteOk(idInstrumento)
-        .flatMap(instDb -> {
-          return isClienteOk(instDb.getCodPersona())
-              .flatMap(clienteApi -> { 
-                return Mono.just(instDb); 
-              });
-        });
+        .flatMap(instDb -> 
+          isClienteOk(instDb.getCodPersona())
+              .flatMap(clienteApi ->  
+                Mono.just(instDb) 
+              )
+        );
   }
   
   
@@ -134,11 +135,11 @@ public class InstrumentosServiceImpl implements InstrumentosService {
   private List<ProductoAsociado> setProdAsociadoAuto(List<ProductoAsociado> items) {
     Integer existeAsociado = items
         .stream()
-        .filter( itemF1 -> itemF1.getIndDefecto().equals(1))
+        .filter(itemF1 -> itemF1.getIndDefecto().equals(1))
         .toList()
         .size();
     
-    if (existeAsociado==0 && !items.isEmpty()) {
+    if (existeAsociado == 0 && !items.isEmpty()) {
       items.get(0).setIndDefecto(1);
     }
     return items;
@@ -172,6 +173,10 @@ public class InstrumentosServiceImpl implements InstrumentosService {
                     ModelMapperUtils.map(prodApi, ProductoAsociado.class);
                 prodAsociado.setIndDefecto(0);
                 prodAsociados.add(prodAsociado);
+                // Ordenar la lista por indPrincipal (1 primero, 0 después)
+                prodAsociados.sort(
+                    Comparator.comparingInt(ProductoAsociado::getIndDefecto).reversed()
+                );
                 setProdAsociadoAuto(prodAsociados);
                 Instrumento modInstrumento = 
                     ModelMapperUtils.map(intDb, Instrumento.class);
@@ -187,8 +192,8 @@ public class InstrumentosServiceImpl implements InstrumentosService {
   public Mono<InstrumentoAsoRes> delAsocProdInstrument(String idInstrumento,
       String idProducto) {
     return isProductoOk(idProducto)
-        .flatMap(prodApi -> {
-          return isInstrumentoOk(idInstrumento)
+        .flatMap(prodApi -> 
+          isInstrumentoOk(idInstrumento)
               .flatMap(intDb -> {
                 List<ProductoAsociado> prodAsociadosMod = intDb.getProductosAsociados()
                     .stream()
@@ -201,8 +206,8 @@ public class InstrumentosServiceImpl implements InstrumentosService {
                 modInstrumento.setFecModificacion(BankFnUtils.getLegacyDateTimeNow());
                 return instrumentosRepo.save(modInstrumento)
                     .map(s -> ModelMapperUtils.map(s, InstrumentoAsoRes.class));
-              });
-        });
+              })
+        );
   }
 
   @Override
