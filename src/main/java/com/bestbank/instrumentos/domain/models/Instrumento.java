@@ -10,6 +10,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
+/**
+ * Clase que representa un instrumento en el sistema.
+ * Esta clase contiene información y datos relacionados 
+ * con un instrumento específico.
+ * 
+ */
 @Document(collection = "instrumentos")
 @Data
 public class Instrumento {

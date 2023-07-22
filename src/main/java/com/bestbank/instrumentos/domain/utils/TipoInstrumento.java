@@ -1,5 +1,11 @@
 package com.bestbank.instrumentos.domain.utils;
 
+/**
+ * Enumerado que representa los diferentes tipos de instrumentos en el sistema.
+ * Este enumerado contiene los posibles valores para el tipo de instrumento 
+ * utilizado en algún contexto del sistema.
+ */
+
 public enum TipoInstrumento {
   
   TARJETA_DEBITO("Tajeta Debito"),

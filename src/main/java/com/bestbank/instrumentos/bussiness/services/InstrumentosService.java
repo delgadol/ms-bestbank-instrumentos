@@ -1,6 +1,5 @@
 package com.bestbank.instrumentos.bussiness.services;
 
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.bestbank.instrumentos.bussiness.dto.req.InstrumentoReq;
 import com.bestbank.instrumentos.bussiness.dto.res.InstrumentoAsoRes;
@@ -9,6 +8,11 @@ import com.bestbank.instrumentos.bussiness.dto.res.InstrumentoRes;
 import jakarta.validation.Valid;
 import reactor.core.publisher.Mono;
 
+/**
+ * Interfaz que define las operaciones disponibles para manipular instrumentos. 
+ * Proporciona métodos para obtener información y realizar acciones relacionadas 
+ * con instrumentos.
+ */
 public interface InstrumentosService {
   
   public Mono<InstrumentoRes> postInstrument(InstrumentoReq instrumento);

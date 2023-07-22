@@ -46,5 +46,6 @@ public class BankFnUtils {
     return Date.from(lastDayOfMonthDateTime.atZone(ZoneId.systemDefault()).toInstant());
   }
   
+  private BankFnUtils() {}
   
 }

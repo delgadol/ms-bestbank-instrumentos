@@ -27,6 +27,14 @@ import com.bestbank.instrumentos.domain.utils.TipoProducto;
 
 import reactor.core.publisher.Mono;
 
+/**
+ * Implementación de la interfaz InstrumentosService que proporciona las 
+ * operaciones para manipular instrumentos.
+ * Contiene la lógica y funcionalidades para 
+ * obtener información y realizar acciones relacionadas con instrumentos.
+ * 
+ */
+
 @Service
 public class InstrumentosServiceImpl implements InstrumentosService {
   
@@ -43,6 +51,13 @@ public class InstrumentosServiceImpl implements InstrumentosService {
   }
   
   
+  /**
+   * Verifica si un cliente es válido y está registrado en el sistema.
+   *
+   * @param idCliente El identificador único del cliente a verificar.
+   * @return Un Mono con la respuesta de la verificación (ClienteRes).
+
+   */
   private Mono<ClienteRes> isClienteOk(String idCliente) {
     return servClienteApi.getClienteById(idCliente)
         .filter(clienteF1 -> 
@@ -54,6 +69,12 @@ public class InstrumentosServiceImpl implements InstrumentosService {
         ));
   }
   
+  /**
+   * Verifica si un producto es válido y está registrado en el sistema.
+   *
+   * @param idProducto El identificador único del producto a verificar.
+   * @return Un Mono con la respuesta de la verificación (ProductoRes).
+   */
   private Mono<ProductoRes> isProductoOk(String idProducto) {
     return servClienteApi.getProducto(idProducto)
         .filter(prodApiF1 -> 
@@ -69,7 +90,12 @@ public class InstrumentosServiceImpl implements InstrumentosService {
         ));
   }
   
-  
+  /**
+   * Verifica la existencia de un instrumento en el sistema.
+   *
+   * @param idInstrumento El identificador único del instrumento a verificar.
+   * @return Un Mono con la respuesta de la verificación (Instrumento).
+   */
   private Mono<Instrumento> isInstrumentoOk(String idInstrumento) {
     return instrumentosRepo.findById(idInstrumento)
         .filter(instDb -> instDb.getIndEliminado().equals(0))
@@ -82,6 +108,12 @@ public class InstrumentosServiceImpl implements InstrumentosService {
         ));        
   }
   
+  /**
+   * Verifica la existencia de un instrumento en el sistema y su asociación con un cliente.
+   *
+   * @param idInstrumento El identificador único del instrumento a verificar.
+   * @return Un Mono con la respuesta de la verificación (Instrumento).
+   */
   private Mono<Instrumento> isInstrumentoClienteOk(String idInstrumento) {
     return isInstrumentoClienteOk(idInstrumento)
         .flatMap(instDb -> 
@@ -93,6 +125,13 @@ public class InstrumentosServiceImpl implements InstrumentosService {
   }
   
   
+  /**
+   * Realiza una solicitud para crear un nuevo instrumento en el sistema.
+   *
+   * @param instrumento El objeto InstrumentoReq que contiene los datos del 
+   * nuevo instrumento a crear.
+   * @return Un Mono con la respuesta de la solicitud (InstrumentoRes).
+   */
 
   @Override
   public Mono<InstrumentoRes> postInstrument(InstrumentoReq instrumento) {
@@ -118,6 +157,13 @@ public class InstrumentosServiceImpl implements InstrumentosService {
         .map(instDb -> ModelMapperUtils.map(instDb, InstrumentoRes.class));
   }
 
+  /**
+   * Obtiene un instrumento del sistema por su identificador único.
+   *
+   * @param idInstrumento El identificador único del instrumento que se desea obtener.
+   * @return Un Mono con la respuesta de la solicitud (InstrumentoRes).
+   */
+
   @Override
   public Mono<InstrumentoRes> delInstrumenById(String idInstrumento) {
     return isInstrumentoOk(idInstrumento)
@@ -132,6 +178,12 @@ public class InstrumentosServiceImpl implements InstrumentosService {
         });
   }
   
+  /**
+   * Configura automáticamente la lista de Productos Asociados.
+   *
+   * @param items La lista de Productos Asociados a configurar automáticamente.
+   * @return La lista de Productos Asociados después de la configuración automática.
+   */
   private List<ProductoAsociado> setProdAsociadoAuto(List<ProductoAsociado> items) {
     Integer existeAsociado = items
         .stream()
@@ -145,6 +197,15 @@ public class InstrumentosServiceImpl implements InstrumentosService {
     return items;
   }
 
+  /**
+   * Asocia un producto específico a un instrumento en el sistema.
+   *
+   * @param idInstrumento El identificador único del instrumento al que se desea 
+   * asociar el producto.
+   * @param idProducto El identificador único del producto que se desea asociar 
+   * al instrumento.
+   * @return Un Mono con la respuesta de la solicitud (InstrumentoAsoRes).
+   */
   @Override
   public Mono<InstrumentoAsoRes> putAsocProdInstrument(String idInstrumento,
       String idProducto) {
@@ -188,6 +249,15 @@ public class InstrumentosServiceImpl implements InstrumentosService {
         );
   }
 
+  /**
+   * Desasocia un producto específico de un instrumento en el sistema.
+   *
+   * @param idInstrumento El identificador único del instrumento del que se desea 
+   * desasociar el producto.
+   * @param idProducto El identificador único del producto que se desea desasociar 
+   * del instrumento.
+   * @return Un Mono con la respuesta de la solicitud (InstrumentoAsoRes).
+   */
   @Override
   public Mono<InstrumentoAsoRes> delAsocProdInstrument(String idInstrumento,
       String idProducto) {
@@ -210,6 +280,13 @@ public class InstrumentosServiceImpl implements InstrumentosService {
         );
   }
 
+  /**
+   * Obtiene la información de asociación de productos de un instrumento específico en el sistema.
+   *
+   * @param idInstrumento El identificador único del instrumento del que se
+   * desea obtener la información de asociación.
+   * @return Un Mono con la respuesta de la solicitud (InstrumentoAsoRes).
+   */
   @Override
   public Mono<InstrumentoAsoRes> getAsocProdInstrument(String idInstrumento) {
     return instrumentosRepo.findById(idInstrumento)

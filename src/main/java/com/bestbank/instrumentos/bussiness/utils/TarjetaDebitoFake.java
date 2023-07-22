@@ -1,7 +1,5 @@
 package com.bestbank.instrumentos.bussiness.utils;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.Random;
 
@@ -11,6 +9,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+/**
+ * Clase que representa una tarjeta de débito falsa para pruebas y simulaciones.
+ * Esta clase es utilizada para emular una tarjeta de débito en el sistema sin 
+ * realizar operaciones reales.
+ * Su propósito es proporcionar un objeto que cumpla con la interfaz de 
+ * tarjeta de débito para pruebas y desarrollo.
+ * 
+ */
 @Builder
 @Data
 @AllArgsConstructor
@@ -26,7 +32,7 @@ public class TarjetaDebitoFake {
   private Date fecCreacion;  
   private Date fecModificacion;
   private TipoInstrumento tipoInstrumento;
-  
+  private final Random random = new Random();
   
 
   public TarjetaDebitoFake() {
@@ -47,7 +53,6 @@ public class TarjetaDebitoFake {
   }
 
   private String generarNumeroTarjeta() {
-    Random random = new Random();
     StringBuilder sb = new StringBuilder();
 
     // Generar el número de tarjeta con 16 dígitos
@@ -59,7 +64,6 @@ public class TarjetaDebitoFake {
   }
 
   private String generarCCV() {
-    Random random = new Random();
     StringBuilder sb = new StringBuilder();
     // Generar el CCV con 3 dígitos
     for (int i = 0; i < 3; i++) {
