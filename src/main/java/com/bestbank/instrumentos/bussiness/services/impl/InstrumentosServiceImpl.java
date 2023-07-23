@@ -25,6 +25,7 @@ import com.bestbank.instrumentos.domain.utils.TipoEstadoFinaciero;
 import com.bestbank.instrumentos.domain.utils.TipoInstrumento;
 import com.bestbank.instrumentos.domain.utils.TipoProducto;
 
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -295,6 +296,17 @@ public class InstrumentosServiceImpl implements InstrumentosService {
         .switchIfEmpty(Mono.error(
             new Throwable("Instrumento no encontrado")
         ));
+  }
+
+
+  @Override
+  public Flux<InstrumentoRes> getAllInstrumentByClientId(String idCliente) {
+    return servClienteApi.getClienteById(idCliente)
+        .flux()
+        .flatMap(clienteApi -> 
+          instrumentosRepo.findAllByCodPersonaAndIndEliminado(idCliente, 0)
+              .map(item -> ModelMapperUtils.map(item, InstrumentoRes.class))
+        );
   }
   
   

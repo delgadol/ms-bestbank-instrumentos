@@ -1,6 +1,5 @@
 package com.bestbank.instrumentos;
 
-import java.util.TimeZone;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,9 +13,4 @@ public class MsBestbanckInstrumentosApplication {
 		SpringApplication.run(MsBestbanckInstrumentosApplication.class, args);
 	}
 	
-  @PostConstruct
-  void init() {
-    //TimeZone.setDefault(TimeZone.getTimeZone("America/Lima"));
-  }
-
 }

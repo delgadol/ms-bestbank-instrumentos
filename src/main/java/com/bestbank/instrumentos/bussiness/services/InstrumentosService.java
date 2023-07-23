@@ -1,11 +1,10 @@
 package com.bestbank.instrumentos.bussiness.services;
 
-
 import com.bestbank.instrumentos.bussiness.dto.req.InstrumentoReq;
 import com.bestbank.instrumentos.bussiness.dto.res.InstrumentoAsoRes;
 import com.bestbank.instrumentos.bussiness.dto.res.InstrumentoRes;
 
-import jakarta.validation.Valid;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -28,5 +27,7 @@ public interface InstrumentosService {
       String idProducto);
   
   public Mono<InstrumentoAsoRes> getAsocProdInstrument(String idInstrumento); 
+  
+  public Flux<InstrumentoRes> getAllInstrumentByClientId(String idCliente); 
 
 }

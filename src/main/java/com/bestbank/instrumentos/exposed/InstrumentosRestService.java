@@ -16,6 +16,7 @@ import com.bestbank.instrumentos.bussiness.dto.res.InstrumentoRes;
 import com.bestbank.instrumentos.bussiness.services.InstrumentosService;
 
 import jakarta.validation.Valid;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -30,15 +31,6 @@ public class InstrumentosRestService {
   public InstrumentosRestService(InstrumentosService servInstrumentos) {
     this.servInstrumentos = servInstrumentos;
   }
-
-  /**
-   * Crea un nuevo instrumento en el sistema a partir de los datos proporcionados
-   *  en la solicitud.
-   *
-   * @param instrumento El objeto InstrumentoReq que contiene los datos 
-   * del nuevo instrumento a crear.
-   * @return Un Mono con la respuesta de la solicitud (InstrumentoRes).
-   */
 
   /**
    * Crea un nuevo instrumento en el sistema a partir de los datos proporcionados 
@@ -108,7 +100,7 @@ public class InstrumentosRestService {
    * @param idInstrumento El identificador único del instrumento del que se desea desasociar 
    * el producto.
    * @param idProducto El identificador único del producto que se desea desasociar del 
-   * instrumento.
+   *  instrumento.
    * @return Un Mono que representa la respuesta de la solicitud (InstrumentoAsoRes).
    */
   @GetMapping("/{idInstrumento}/asociaciones")
@@ -116,5 +108,11 @@ public class InstrumentosRestService {
       @PathVariable(name = "idInstrumento") String idInstrumento) {
     return servInstrumentos.getAsocProdInstrument(idInstrumento);
   } 
+  
+  @GetMapping("/clientes/{idCliente}/detalles")
+  public Flux<InstrumentoRes> getAllInstrumentByClientId(
+      @PathVariable(name = "idCliente") String idCliente) {
+    return servInstrumentos.getAllInstrumentByClientId(idCliente);
+  }
   
 }
