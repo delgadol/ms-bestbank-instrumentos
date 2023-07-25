@@ -19,18 +19,30 @@ import reactor.core.publisher.Mono;
 @Service
 public class ClientesApiServiceImpl implements ClientesApiService {
 
+  private final WebClientApi webClientApi;
+  
 
+  public ClientesApiServiceImpl(WebClientApi webClientApi) {
+    super();
+    this.webClientApi = webClientApi;
+  }
+
+
+  @Value("${app.simpleId}")
+  private String simpleIdUrl;
+  
+  
   @Value("${app.clientesUrl}")
-  private String clientesUrl;
+  private String clientesBaseUrl;
   
   @Value("${app.productosUrl}")
-  private String productoUrl;
+  private String productoBaseUrl;
   
   
   @Override
   public Mono<ClienteRes> getClienteById(String idCliente) {
     log.info(String.format("Consultando Api Cliente : %s", idCliente));
-    return WebClientApi.getMono(String.format(this.clientesUrl, idCliente), 
+    return webClientApi.getMono(clientesBaseUrl,String.format(this.simpleIdUrl, idCliente), 
         ClienteRes.class, String.format("Error al Buscar Cliente : %s", idCliente));
   }
 
@@ -38,7 +50,7 @@ public class ClientesApiServiceImpl implements ClientesApiService {
   @Override
   public Mono<ProductoRes> getProducto(String idProducto) {
     log.info(String.format("Consultando Api Producto : %s", idProducto));
-    return WebClientApi.getMono(String.format(this.productoUrl, idProducto), 
+    return webClientApi.getMono(productoBaseUrl,String.format(this.simpleIdUrl, idProducto), 
         ProductoRes.class, String.format("Error al Buscar Producto: %s", idProducto));
   }
 
