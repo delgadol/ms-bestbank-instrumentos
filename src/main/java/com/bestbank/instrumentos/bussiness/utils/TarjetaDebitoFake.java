@@ -1,10 +1,8 @@
 package com.bestbank.instrumentos.bussiness.utils;
 
+import com.bestbank.instrumentos.domain.utils.TipoInstrumento;
 import java.util.Date;
 import java.util.Random;
-
-import com.bestbank.instrumentos.domain.utils.TipoInstrumento;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

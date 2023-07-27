@@ -1,14 +1,11 @@
 package com.bestbank.instrumentos.domain.models;
 
 import com.bestbank.instrumentos.domain.utils.TipoInstrumento;
-
 import java.util.Date;
 import java.util.List;
-
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import lombok.Data;
 
 /**
  * Clase que representa un instrumento en el sistema.

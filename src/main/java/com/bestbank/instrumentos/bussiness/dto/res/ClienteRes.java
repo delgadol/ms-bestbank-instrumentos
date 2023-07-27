@@ -3,7 +3,6 @@ package com.bestbank.instrumentos.bussiness.dto.res;
 
 import com.bestbank.instrumentos.domain.utils.TipoCliente;
 import com.bestbank.instrumentos.domain.utils.TipoEstadoFinaciero;
-
 import lombok.Data;
 
 /**

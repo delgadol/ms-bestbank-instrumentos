@@ -2,7 +2,6 @@ package com.bestbank.instrumentos.domain.models;
 
 import com.bestbank.instrumentos.domain.utils.GrupoProducto;
 import com.bestbank.instrumentos.domain.utils.TipoProducto;
-
 import lombok.Data;
 
 /**

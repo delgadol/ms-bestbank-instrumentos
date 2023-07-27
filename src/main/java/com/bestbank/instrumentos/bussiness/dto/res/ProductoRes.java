@@ -4,7 +4,6 @@ package com.bestbank.instrumentos.bussiness.dto.res;
 import com.bestbank.instrumentos.domain.utils.GrupoProducto;
 import com.bestbank.instrumentos.domain.utils.TipoCliente;
 import com.bestbank.instrumentos.domain.utils.TipoProducto;
-
 import lombok.Data;
 
 /**

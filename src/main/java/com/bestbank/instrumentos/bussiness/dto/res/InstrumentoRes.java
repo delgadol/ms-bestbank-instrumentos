@@ -1,10 +1,7 @@
 package com.bestbank.instrumentos.bussiness.dto.res;
 
-import java.util.Date;
-
-
 import com.bestbank.instrumentos.domain.utils.TipoInstrumento;
-
+import java.util.Date;
 import lombok.Data;
 
 /**
