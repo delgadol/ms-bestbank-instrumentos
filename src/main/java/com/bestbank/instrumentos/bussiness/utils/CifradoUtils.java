@@ -1,6 +1,8 @@
 package com.bestbank.instrumentos.bussiness.utils;
 
 public class CifradoUtils {
+  
+  private CifradoUtils() {}
 
   public static String cifrarFake(String mensaje, int clave) {
     StringBuilder resultado = new StringBuilder();
